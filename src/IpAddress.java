@@ -8,48 +8,63 @@
  */
 public class IpAddress {
 	
-	/** IPv4 in dotted decimal notation */
-	private String ipAddress;
 	
-	/** IPv4 in decimal notation */
-	private long decimalIp;
+	private String ipAddress;	// IPv4 in dotted decimal notation
 	
-	/** IPv4 first octet from left to right */
-	private short _1stOctet;
+	private long decimalIp;		// IPv4 in decimal notation
 	
-	/** IPv4 second octet from left to right */
-	private short _2ndOctet;
+	private short _1stOctet;	// IPv4 first octet from left to right
+	private short _2ndOctet;	// IPv4 second octet from left to right
+	private short _3rdOctet;	// IPv4 third octet from left to right
+	private short _4thOctet;	// IPv4 fourth octet from left to right
 	
-	/** IPv4 third octet from left to right */
-	private short _3rdOctet;
 	
-	/** IPv4 fourth octet from left to right */
-	private short _4thOctet;
 	
+	/** Default constructor
+	 * 
+	 *	@param ip The IPv4 in dotted decimal notation. Must not be NULL 
+	 * 
+	 */
 	public IpAddress(String ip) {
 		this.SetIP(ip);
 	}
 	
+	
+	
+	/** Get the decimal representation of the IPv4 */
 	public long GetDecimal() {
 		return decimalIp;
 	}
 	
+	
+	
+	/** Get the first octet (xxx.---.---.---) from left to right in decimal */
 	public short Get1stOctet() {
 		return _1stOctet;
 	}
 	
+	/** Get the second octet (---.xxx.---.---) from left to right in decimal */
 	public short Get2ndOctet() {
 		return _2ndOctet;
 	}
 	
+	/** Get the third octet (---.---.xxx.---) from left to right in decimal */
 	public short Get3rdOctet() {
 		return _3rdOctet;
 	}
 	
+	/** Get the fourth octet (---.---.---.xxx) from left to right in decimal */
 	public short Get4thOctet() {
 		return _4thOctet;
 	}
 	
+	
+	/** Set the working IP. If the format of ip is not in dotted decimal
+	 * 	then its set to 0.0.0.0
+	 * 
+	 * 	@param 	ip
+	 * 	@return The result of IPv4 format check. True is the format is correct, false if its not
+	 */
 	public boolean SetIP(String ip) {
 		if (this.CheckFormat(ip)) {
 			ipAddress = ip;
