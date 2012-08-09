@@ -79,13 +79,57 @@ public class IpAddress {
 		}
 	}
 	
+	/** Get the current IP */
 	public String GetIP() {
 		return ipAddress;
 	}
 	
+	/**
+	 * Show the next address from the current address
+	 * @return The string of the next address in dotted decimal format
+	 */
+	public String NextAddress() {
+		return this.MoveAddress(true, 1);
+	}
+
+	
+	private String MoveAddress(boolean moveForward, int positions ) {
+		//TODO Finish the remainder for 1st, 2nd and 3rd octet
+		
+		int l = _1stOctet;
+		int k = _2ndOctet;
+		int j = _3rdOctet;
+		int i = _4thOctet;
+		int remainder = 0;
+		int pos;
+		
+		pos = (moveForward) ? positions : (positions * (-1));
+		
+		if ((i + pos) > 255) {
+			i = (i + pos) - 255;
+			j += 1;
+		}
+		else if ((i + pos) < 0) {
+			i = (i + pos) + 255;
+			j -= 1;
+		}
+		else { i += pos; }
+		
+		return "Test";
+	
+	}
+	
+	/** Check if the format of the IP is in dotted decimal (xxx.xxx.xxx.xxx)
+	 * 
+	 *	@param ip The string to check format 
+	 * 	@return True if the format is correct, otherwise, False
+	 * 
+	 */
 	private boolean CheckFormat(String ip) {
 		return (ip.matches("([0-9]{1,3}.){3}[0-9]{1,3}"));
 	}
+	
+	
 	
 	private void SplitAddress(String ip) {
 		String[] octets;
