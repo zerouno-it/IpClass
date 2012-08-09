@@ -1,8 +1,18 @@
-
+/**
+ * Class to handle IPv4 addresses. 
+ * 
+ * 
+ * @author 	Alejandro Amaral
+ * @version	1.0 08 Aug. 2012
+ *
+ */
 public class IpAddress {
 	
+	/** Holds the current IPv4 in dotted decimal notation */
 	private String ipAddress;
-	private long decimalIp = 0;
+	
+	/** Holds the current IPv4 in decimal notation */
+	private long decimalIp;
 	
 	public boolean SetIP(String ip) {
 		if (this.CheckFormat(ip)) {
