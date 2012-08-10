@@ -117,21 +117,21 @@ public class IpAddress {
 		pos = (moveForward) ? positions : (positions * (-1));	// If moveForward is false, sets the position in negative
 
 		if ((i + pos) > 255) {									// The position exceeds the max value of 4th octet 
-			i = ((i + pos) - 255) - 1;
-			j += 1;
+			i = ((i + pos) - 255) - 1;							// Take the difference between actual ip, pos and max value. Rest 1 because IP addresses are zero based
+			j += 1;												// Add 1 to next octet
 		}
-		else if ((i + pos) < 0) {
-			i = ((i + pos) + 255) + 1;
+		else if ((i + pos) < 0) {								// The position is below the min value
+			i = ((i + pos) + 255) + 1;							// Same as above but add 1 to compensate the zero
 			j -= 1;
 		}
-		else { i += pos; }
+		else { i += pos; }										// The position is between the min a max values
 
 		
-		if (j > 255) {
-			j = 0;
-			k += 1;
+		if (j > 255) {											// Same principle as 4th octet, if over 255
+			j = 0;												// the value is 0
+			k += 1;												// and carry 1 to next octet
 		}
-		else if (j < 0) {
+		else if (j < 0) {										// If 
 			j = 255;
 			k -= 1;
 		}
