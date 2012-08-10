@@ -58,6 +58,7 @@ public class IpAddress {
 		return _4thOctet;
 	}
 
+	
 
 	/** Set the working IP. If the format of ip is not in dotted decimal
 	 * 	then its set to 0.0.0.0
@@ -93,14 +94,32 @@ public class IpAddress {
 	}
 	
 	
+	/**
+	 * Show the previous address from the current address
+	 * @return The string of the previous address in dotted decimal format
+	 */
 	public String PrevAddress(){
 		return this.MoveAddress(false, 1);
+	}
+	
+	/**
+	 * Set the current IP to the next address
+	 */
+	public void MoveToNext() {
+		this.SetIP(this.NextAddress());
+	}
+	
+	/**
+	 * Set the current IP to the previous address
+	 */
+	public void MoveToPrevious() {
+		this.SetIP(this.PrevAddress());
 	}
 
 	/**
 	 * Show the IP address up or below of the current address according the value in positions
 	 * @param moveForward - Determine the direction of movement. If true, the movement is ascendant, else is descendant
-	 * @param positions	- How many positions move relatively to current IP.
+	 * @param positions	- How many positions move relatively to current IP. Must be any value between 1 and 255
 	 * @return The IPv4 address solicited
 	 */
 	private String MoveAddress(boolean moveForward, int positions ) {
@@ -117,7 +136,7 @@ public class IpAddress {
 		pos = (moveForward) ? positions : (positions * (-1));	// If moveForward is false, sets the position in negative
 
 		if ((i + pos) > 255) {									// The position exceeds the max value of 4th octet 
-			i = ((i + pos) - 255) - 1;							// Take the difference between actual ip, pos and max value. Rest 1 because IP addresses are zero based
+			i = ((i + pos) - 255) - 1;							// Take the difference between actual ip, pos and max value. Substract 1 because IP addresses are zero based
 			j += 1;												// Add 1 to next octet
 		}
 		else if ((i + pos) < 0) {								// The position is below the min value
@@ -131,12 +150,12 @@ public class IpAddress {
 			j = 0;												// the value is 0
 			k += 1;												// and carry 1 to next octet
 		}
-		else if (j < 0) {										// If 
-			j = 255;
-			k -= 1;
+		else if (j < 0) {										// If below the minimun
+			j = 255;											// Set to 255
+			k -= 1;												// Substract 1 to 2nd octet
 		}
 		
-		if (k > 255) {
+		if (k > 255) {											// Same as above
 			k = 0;
 			l += 1;
 		}
@@ -146,14 +165,14 @@ public class IpAddress {
 		}
 		
 		
-		if ((l > 255) || (l < 0)) {
-			l = 0;
+		if ((l > 255) || (l < 0)) {								// If reach the min or max values
+			l = 0;												// reset all values to 0
 			k = 0;
 			j = 0;
 			i = 0;
 		}
 		
-		return (l + "." + k + "." + j + "." + i);
+		return (l + "." + k + "." + j + "." + i);				// Return the IPv4 in dotted decimal format
 
 	}
 
@@ -168,16 +187,33 @@ public class IpAddress {
 	}
 
 
-
+	/**
+	 * Populate the octets from the string of an IPv4 dotted decimal address
+	 * @param ip - The IPv4 address
+	 */
 	private void SplitAddress(String ip) {
-		String[] octets;
-		octets = ip.split("\\.");
-		_1stOctet = Short.parseShort(octets[0]);
-		_2ndOctet = Short.parseShort(octets[1]);
-		_3rdOctet = Short.parseShort(octets[2]);
-		_4thOctet = Short.parseShort(octets[3]);
+		if (this.CheckFormat(ip)) {
+			String[] octets;
+			octets = ip.split("\\.");
+			_1stOctet = Short.parseShort(octets[0]);
+			_2ndOctet = Short.parseShort(octets[1]);
+			_3rdOctet = Short.parseShort(octets[2]);
+			_4thOctet = Short.parseShort(octets[3]);	
+		}
+		else {
+			_1stOctet = 0;
+			_2ndOctet = 0;
+			_3rdOctet = 0;
+			_4thOctet = 0;
+		}
 	}
 
+	
+	/**
+	 * Convert an IPv4 dotted decimal address to decimal notation
+	 * @param ip - The IPv4 address to convert
+	 * @return The decimal representation of the IPv4
+	 */
 	private long toDecimal(String ip) {
 		String[] octets;
 		long i = 0;
