@@ -31,29 +31,39 @@ public class IpAddress {
 
 
 
-	/** Get the decimal representation of the IPv4 */
+	/** Get the decimal representation of the IPv4
+	 *	@return The decimal value of the IPv4
+	 */
 	public long GetDecimal() {
 		return decimalIp;
 	}
 
 
 
-	/** Get the first octet (xxx.---.---.---) from left to right in decimal */
+	/** Get the first octet (xxx.---.---.---) from left to right in decimal notation
+	 * 	@return The value of the 1st octet
+	 */
 	public short Get1stOctet() {
 		return _1stOctet;
 	}
 
-	/** Get the second octet (---.xxx.---.---) from left to right in decimal */
+	/** Get the second octet (---.xxx.---.---) from left to right in decimal notation
+	 *	@return The value of the 2nd octet 
+	 */
 	public short Get2ndOctet() {
 		return _2ndOctet;
 	}
 
-	/** Get the third octet (---.---.xxx.---) from left to right in decimal */
+	/** Get the third octet (---.---.xxx.---) from left to right in decimal notation
+	 *	@return The value of the 3rd octet 
+	 */
 	public short Get3rdOctet() {
 		return _3rdOctet;
 	}
 
-	/** Get the fourth octet (---.---.---.xxx) from left to right in decimal */
+	/** Get the fourth octet (---.---.---.xxx) from left to right in decimal notation
+	 * 	@return The value of the 4th octet 
+	 */
 	public short Get4thOctet() {
 		return _4thOctet;
 	}
