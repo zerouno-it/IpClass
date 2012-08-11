@@ -73,7 +73,7 @@ public class IpAddress {
 	/** Set the working IP. If the format of ip is not in dotted decimal
 	 * 	then its set to 0.0.0.0
 	 * 
-	 * 	@param 	ip The IP address in dotted decimal format. Must be not NULL
+	 * 	@param 	ip - The IP address in dotted decimal format. Must not be NULL
 	 * 	@return The result of IPv4 format check. True is the format is correct, false if its not
 	 */
 	public boolean SetIP(String ip) {
